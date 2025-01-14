@@ -10,7 +10,7 @@ function App() {
 
 
   return (
-    <>
+    <main className='flex bg-gray-100'>
     <Router>
       <Nav/>
       <Routes>
@@ -21,8 +21,8 @@ function App() {
 
       </Routes>
     </Router>
+    </main>
     
-    </>
   )
 }
 
