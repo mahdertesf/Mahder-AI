@@ -10,6 +10,8 @@ import BigNav from './BigNav'
 import SmallNav from './SmallNav'
 
 
+
+
 function Nav() {
 
     const [showBigNav, setShowBigNav] = useState(true);
@@ -27,7 +29,10 @@ function Nav() {
   return (
     
         showBigNav ?(
-            <BigNav nav_elements={nav_elements} navHandler={navHandler} />
+           
+             <BigNav nav_elements={nav_elements} navHandler={navHandler} />
+      
+          
         ) :(
             <SmallNav nav_elements={nav_elements} logo={Logo} navHandler={navHandler}/>
         )
