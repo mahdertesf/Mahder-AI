@@ -9,7 +9,7 @@ function InsideNav(props) {
           <div className="flex items-center justify-between border-b-2 mx-3">
             <div className="flex items-center justify-center gap-3 font-bold text-xl p-2">
               <img src={Logo} alt="logo" className="w-16 h-16" />
-              <span className='protest-guerrilla-regular text-blue-500'>Mahder Ai</span>
+              <span className='protest-guerrilla-regular text-blue-500 text-center'>Mahder Ai</span>
             </div>
             <Link><IoChevronBackCircleSharp
               className="text-3xl mr-2"
