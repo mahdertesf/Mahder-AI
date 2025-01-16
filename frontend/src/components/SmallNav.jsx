@@ -5,7 +5,7 @@ import MobileNav from "./MobileNav";
 
 function SmallNav(props) {
   return (<>
-  <header className="h-screen w-[5%] bg-white z-50 transition-transform duration-300 max-md:hidden">
+  <header className=" w-[5%] bg-white z-50 transition-transform duration-300 max-md:hidden">
     <nav >
       <div className="flex flex-col items-center justify-between  border-b-2 py-4 ">
         <img src={props.logo} alt="logo" className="w-16 h-16" />
