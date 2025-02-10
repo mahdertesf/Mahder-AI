@@ -29,3 +29,5 @@ dist-ssr/
 # Virtual environments
 venv/
 MlEnv/
+Pipfile.lock
+
