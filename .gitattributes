@@ -1,3 +1,5 @@
 MlEnv/lib/python3.10/site-packages/tensorflow/libtensorflow_cc.2.dylib filter=lfs diff=lfs merge=lfs -text
 Training_models/Transformer_classifier_app_1/datas/totaldata.json filter=lfs diff=lfs merge=lfs -text
 Training_models/Transformer_classifier_app_1/datas/cleaned_data.txt filter=lfs diff=lfs merge=lfs -text
+Training_models/Transformer_classifier_app_1/datas/*.txt filter=lfs diff=lfs merge=lfs -text
+Training_models/Transformer_classifier_app_1/datas/*.json filter=lfs diff=lfs merge=lfs -text
