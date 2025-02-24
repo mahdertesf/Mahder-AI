@@ -30,4 +30,7 @@ dist-ssr/
 venv/
 MlEnv/
 Pipfile.lock
+MlnewEnv/
+MlnewEnv2/
+cpuenv/
 
