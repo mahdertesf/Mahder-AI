@@ -34,3 +34,10 @@ MlnewEnv/
 MlnewEnv2/
 cpuenv/
 
+
+# Ignore environment variables
+.env
+*/.env
+**/.env
+
+
