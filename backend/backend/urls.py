@@ -22,8 +22,8 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
     path('', include('core.urls')),
-    path('accounts/', include('allauth.urls')),
-    path('rest_auth/',include('dj_rest_auth.urls')),
-    path('rest_auth/registration/',include('dj_rest_auth.registration.urls')),
+    path('auth/', include('dj_rest_auth.urls')),
+    path('auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('auth/social/', include('allauth.socialaccount.urls')),
    
 ]

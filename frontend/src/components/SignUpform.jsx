@@ -76,7 +76,7 @@ function SignUpForm() {
 
   const handleGoogleLogin=async(response)=>{
     try{
-      const res= await fetch("http://localhost:8000/rest-auth/google/",{
+      const res= await fetch("http://localhost:8000/dj-rest-auth/google/",{
         method:"POST",
         headers:{
           "Content-Type":"application/json"
