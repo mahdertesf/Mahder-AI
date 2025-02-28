@@ -11,12 +11,14 @@ function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
 
   const handleSignUp = async (e) => {
     e.preventDefault();
     setError(null);
+    setSuccess(false);
 
     try {
       const response = await fetch("http://127.0.0.1:8000/auth/users/", {
@@ -65,7 +67,14 @@ function SignUpForm() {
         }
         const loginData = await loginResponse.json();
         localStorage.setItem("token", loginData.auth_token);
-        navigate("/contact");
+        setSuccess(true);
+
+        setTimeout(()=>{
+          setSuccess(false)
+          navigate("/contact"); // this will be changed into dashboard later
+          window.location.reload();
+        },1000)
+  
       } catch (error) {
         setError(error.message);
       }
@@ -106,6 +115,7 @@ function SignUpForm() {
             Sign Up
           </h1>
           <h4 className="font-light pt-1">Create new account</h4>
+          {success && <div className="  text-green-500 rounded-full p-4"> Account Created Successfully !</div>}
         </div>
         {error && <div className="text-red-500">{error}</div>}
 

@@ -3,7 +3,7 @@ import Hero from '../components/Hero'
 
 function Home() {
   return (
-    <main className='flex-1'>
+    <main className='flex-1 '>
       <Hero/>
     </main>
   )

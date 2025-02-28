@@ -13,7 +13,7 @@ function App() {
 
 
   return (
-    <main className='flex bg-gray-100'>
+    <main className='flex bg-gray-100 mt-0'>
     <Router>
       <Nav/>
       <Routes>

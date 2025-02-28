@@ -7,11 +7,14 @@ const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
+  
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
+    setSuccess(false);
     try {
       const response = await fetch("http://127.0.0.1:8000/auth/token/login/", {
         method: "POST",
@@ -22,8 +25,18 @@ const LoginForm = () => {
         throw new Error("Invalid username or password");
       }
       const data = await response.json();
-      localStorage.setItem("authToken", data.auth_token);
-      navigate("/contact"); // this will be changed into dashboard later
+      localStorage.setItem("token", data.auth_token);
+      setSuccess(true);
+
+      setTimeout(()=>{
+        setSuccess(false)
+        navigate("/contact"); // this will be changed into dashboard later
+        window.location.reload();
+      },1000)
+
+
+     
+      
     } catch (error) {
       setError(error.message);
     }
@@ -41,6 +54,9 @@ const LoginForm = () => {
           </h1>
           <h4 className="font-light pt-1">Log in to your account</h4>
         </div>
+        {
+        success && <div className="  text-green-500 rounded-full p-4">Login Successful !</div>
+      }
         {error && <div className="text-red-500">{error}</div>}
 
         <div className="w-full">
@@ -68,7 +84,7 @@ const LoginForm = () => {
         </div>
 
         <div className="font-thin text-blue-400">
-          <a href="#">Forgot password ?</a>
+          <button>Forgot password ?</button>
         </div>
 
         <button
@@ -95,6 +111,7 @@ const LoginForm = () => {
           <GoogleIcon /> <span>Google</span>
         </button>
       </div>
+      
     </section>
   );
 };
