@@ -29,8 +29,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "http://192.168.215.188:3000"
-]
+    "http://192.168.215.188:3000",
+    "http://10.5.216.57:3000",
+] #to be chnaged during production  
 
 
 
@@ -149,7 +150,10 @@ DJOSER = {
     "SET_PASSWORD_RETYPE": True,
     "SERIALIZERS": {
         "user_create": "core.serializers.CustomUserCreateSerializer",
-    }
+    },
+    "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}/",
+    "SEND_CONFIRMATION_EMAIL": True,
+    
 }
 
 
@@ -192,3 +196,11 @@ SOCIALACCOUNT_PROVIDERS = {
 ACCOUNT_ALLOW_REGISTRATION = True
 SOCIALACCOUNT_AUTO_SIGNUP = True  
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'http'  # change to https in production
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # This is the address of the email server that will handle sending your emails. change it accordingly during production
+EMAIL_PORT = 587  # This is the port of the email server. change it accordingly during production
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'mahdertesfaye001@gmail.com' # this is the email which authenticates the SMTP server use it to send the email. Change it during production
+EMAIL_HOST_PASSWORD = 'idfmglipzycqtomz' # to be changed accordingly during production it is better to store it in .env file fr better decurity use app passsword if needed
+
+

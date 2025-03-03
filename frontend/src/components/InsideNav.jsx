@@ -3,6 +3,8 @@ import Logo from "../assets/images/logo.png";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import Profile from "./Profile";
+import LoginButton from "./LoginButton";
+
 
 function InsideNav(props) {
   return (

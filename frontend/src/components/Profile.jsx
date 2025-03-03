@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import DummyProfile from "../assets/images/telegramhate/dummy.png";
 import LogoutButton from "../components/LogoutButton";
+import LoginButton from "./LoginButton";
 
 function Profile() {
   const [profilePic, setProfilePic] = useState("");
@@ -34,17 +35,21 @@ function Profile() {
   }, [token]);
 
   return (
-    <section className="flex flex-col items-center gap-1 w-full justify-center">
-      <div className="flex flex-col items-center gap-1">
-        <img
-          src={profilePic || DummyProfile}
-          alt="profile"
-          className="rounded-full mx-auto bg-blue-600 w-1/3"
-        />
-        <h1>{userName}</h1>
-      </div>
-      <LogoutButton />
-    </section>
+    <>
+      {token ? (
+        <div className="flex flex-col items-center gap-3">
+          <img
+            src={profilePic ? profilePic : DummyProfile}
+            alt="profile"
+            className="w-24 h-24 rounded-full"
+          />
+          <span className="text-blue-500 text-lg">{userName}</span>
+          <LogoutButton />
+        </div>
+      ) : (
+        <LoginButton />
+      )}
+    </>
   );
 }
 
