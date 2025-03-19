@@ -40,4 +40,7 @@ cpuenv/
 */.env
 **/.env
 
+# model training files
+Training_models/
+
 
