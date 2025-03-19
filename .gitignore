@@ -12,7 +12,7 @@ node_modules/
 
 # Ignore build directories
 dist/
-dist-ssr/
+dist-ssr/ 
 *.local
 
 # Editor directories and files
