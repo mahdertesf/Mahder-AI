@@ -8,6 +8,7 @@ import Contact from './pages/Contact'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import TransformerClassifier from './pages/TransformerClassifier'
+import TrainModels from './pages/TrainModels'
 
 function App() {
 
@@ -24,7 +25,7 @@ function App() {
         <Route path='/login' element={<Login/>}/>  
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/apps/telegramhatespeech' element={<TransformerClassifier/>}/>
-        
+        <Route path='apps/trainmodels' element={<TrainModels/>}/>       
 
       </Routes>
     </Router>
