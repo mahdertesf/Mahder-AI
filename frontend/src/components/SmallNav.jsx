@@ -5,13 +5,13 @@ import MobileNav from "./MobileNav";
 
 function SmallNav(props) {
   return (<>
-  <header className=" w-[5%] bg-white z-50 transition-transform duration-300 max-md:hidden">
+  <header className=" w-[9%] lg:w-[6%] bg-white z-50 transition-transform duration-300 max-md:hidden ">
     <nav >
       <div className="flex flex-col items-center justify-between  border-b-2 py-4 ">
         <img src={props.logo} alt="logo" className="w-16 h-16" />
         <Link><FaCircleChevronRight className="text-2xl " onClick={props.navHandler} /></Link>
       </div>
-      <ul className="flex flex-col items-center justify-center pt-7 mx-6 gap-5">
+      <ul className="flex flex-col items-center justify-center pt-7 mx-6 gap-5 ">
         {props.nav_elements.map((element) => {
           return (
             <li key={element.name} className="flex items-center gap-3">
