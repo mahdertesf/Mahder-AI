@@ -30,7 +30,7 @@ const LoginForm = () => {
 
       setTimeout(()=>{
         setSuccess(false)
-        navigate("/contact"); // this will be changed into dashboard later
+        navigate("/apps/trainmodels"); // this will be changed into dashboard later
         window.location.reload();
       },1000)
 
