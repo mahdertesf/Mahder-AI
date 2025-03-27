@@ -2,6 +2,8 @@ import React from 'react'
 import Result from '../components/app2/Result'
 
 function TrainModels() {
+    
+
   return (
     <main className='w-full min-h-screen bg-gradient-to-t from-yellow-100 to to-blue-100'>
         <div className='shadow-2xl  shadow-white h-min-full capitalize bg-yellow-50 font-extrabold text-9xl max-sm:text-5xl max-lg:text-6xl
@@ -25,9 +27,7 @@ function TrainModels() {
                         <option>Extractive Question Answering</option>
                         <option>Chatbots</option>
                         <option>Translation</option>
-                        <option>Summarization</option>
-
-
+                        
                     </select>
                 </div>
                 <div className='flex flex-col gap-2 w-full bg-red-100 p-6 rounded-3xl hover:bg-blue-400 items-center '>
@@ -35,7 +35,7 @@ function TrainModels() {
                     <label>Upload Dataset</label>
                     <input type='file' className='w-1/2' />
                     </div>
-                    <h3 className='font-light text-neutral-600 hover:text-black'>The file format should be in .json. see this file for more detail </h3>
+                    <h3 className='font-light text-neutral-600 hover:text-black'>The file format should be in .json. <a className='text-red-700' href="https://github.com/mahdertesf/LLM-Fine-tunning-Data-Format" >see this file for more detail</a> </h3>
                 </div>
                 <div className='flex gap-4 w-full bg-red-100 p-6 rounded-3xl hover:bg-blue-400 justify-between'>
                     <label>Number of Epochs</label>
@@ -49,9 +49,12 @@ function TrainModels() {
                     <label>Learning Rate</label>
                     <input type='number' className='w-1/2 p-2' />
                 </div>
+           
+                
                 <div className='flex gap-4 w-full bg-red-100 p-6 rounded-3xl hover:bg-blue-400 justify-between'>
                     <label>Validation Split Size</label>
-                    <input type='number' className='w-1/2 p-2' />
+                    <input type='number' className='w-1/2 p-2' min={0} max={1} placeholder='use value between 0 and 1' />
+                    
                 </div>
                 <div className='flex flex-col gap-2 w-full bg-red-100 p-6 rounded-3xl hover:bg-blue-400 items-center'>
                     <div className='flex gap-4'>
