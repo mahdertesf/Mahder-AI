@@ -8,7 +8,7 @@ import keras
 import keras_nlp
 import json
 from django.http import FileResponse
-
+import numpy as np
 
 #load the environment variables for authentication
 
@@ -102,6 +102,8 @@ def trainModel(request):
     validation_split = float(validation_split)
     training_data = processed_data[:int(len(processed_data) * (1 - validation_split))]
     validation_data=processed_data[int(len(processed_data) * (1 - validation_split)):]
+    training_data=np.array(training_data)
+    validation_data=np.array(validation_data)
     
    
         
@@ -112,7 +114,7 @@ def trainModel(request):
     gemma_lm.backbone.enable_lora(rank=4)
     gemma_lm.preprocessor.sequence_length = 256
     optimizer = keras.optimizers.AdamW(
-    learning_rate=data.get('learning_rate', 1e-4),
+    learning_rate=float(data.get('learning_rate', 1e-4)),
     weight_decay=0.01,)
     optimizer.exclude_from_weight_decay(var_names=["bias", "scale"])
     
