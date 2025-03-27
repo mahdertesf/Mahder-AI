@@ -6,6 +6,8 @@ import os
 from dotenv import load_dotenv
 import keras
 import keras_nlp
+import json
+from django.http import FileResponse
 
 
 #load the environment variables for authentication
@@ -119,22 +121,31 @@ def trainModel(request):
     optimizer=optimizer,
     weighted_metrics=["accuracy"],
     )
-    import json
-    training_data = []
-    file=request.FILES["dataset"]
-    for line in file:
-        features = json.loads(line)
-        # Filter out examples with context, to keep it simple.
-        if features["context"]:
-            continue
-        # Format the entire example as a single string.
-        template = "Instruction:\n{instruction}\n\nResponse:\n{response}"
-        training_data.append(template.format(**features))
-
-        # Only use 1000 training examples, to keep it fast.
-        training_data= training_data[:1000]
+   
     
-    gemma_lm.fit(training_data, epochs=int(data['epochs']), batch_size=int(data['batch_size']),
+    history=gemma_lm.fit(training_data, epochs=int(data['epochs']), batch_size=int(data['batch_size']), validation_data=validation_data,
                  callbacks=[keras.callbacks.EarlyStopping( monitor='val_loss',restore_best_weights=data.get('best_model',True), mode='min', patience=3),BatchLossLogger()])
     gemma_lm.save('model.keras')
-    return Response({'message':'Model trained successfully'},status=status.HTTP_200_OK)
+    return Response({'message':'Model trained successfully',
+                     'training_loss':history.history["loss"],
+                     "training_accuracy":history.history["accuracy"],
+                     "val_accuracy":history.history["val_accuracy"],
+                     "validation_loss":history.history["val_loss"],
+                     'model_url':f'http://127.0.0.1:8000/api/download_model?path="model/model.keras'},status=status.HTTP_200_OK)
+    
+#this function is used to download the model
+
+@api_view(['GET'])
+def downloadModel(request):
+    model_path=request.GET.get('path')
+    if os.path.exists(model_path):
+        return FileResponse(
+            open(model_path, 'rb'),
+            as_attachment=True,
+            filename="training_model.keras",
+            status=status.HTTP_200_OK
+            
+            )
+    else:
+        return Response({'message':'Model not found'},status=status.HTTP_404_NOT_FOUND)
+    
