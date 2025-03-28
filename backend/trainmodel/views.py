@@ -19,23 +19,37 @@ os.environ["KAGGLE_KEY"] = "7716050dc2e8cdacfca2f913de1d4508"
 os.environ["KERAS_BACKEND"] = "torch" 
 os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"]="1.00"
 
-loss=None
-accuracy=None
-current_batch=None
+loss = None
+accuracy = None
+val_loss = None
+val_accuracy = None
+current_batch = None
 
 class BatchLossLogger(keras.callbacks.Callback):
     def __init__(self):
         super().__init__()
-        self.batch_losses = []
+        # Create two separate files for batch and epoch logs
+        with open("batch_metrics.csv", "w") as f:
+            f.write("batch,loss,accuracy\n")
+        with open("epoch_metrics.csv", "w") as f:
+            f.write("epoch,val_loss,val_accuracy\n")
     
     def on_train_batch_end(self, batch, logs=None):
-        self.batch_losses.append(logs['loss'])
-        global loss
-        loss=logs['loss']
-        global accuracy
-        accuracy=logs['accuracy']
-        global current_batch
-        current_batch=batch
+        global loss, accuracy, current_batch
+        loss = logs.get('loss')
+        accuracy = logs.get('accuracy')
+        current_batch = batch
+        
+        with open("batch_metrics.csv", "a") as f:
+            f.write(f"{batch},{loss},{accuracy}\n")
+    
+    def on_epoch_end(self, epoch, logs=None):
+        global val_loss, val_accuracy
+        val_loss = logs.get('val_loss')
+        val_accuracy = logs.get('val_accuracy')
+        
+        with open("epoch_metrics.csv", "a") as f:
+            f.write(f"{epoch+1},{val_loss},{val_accuracy}\n")
         
     
     
@@ -131,9 +145,9 @@ def trainModel(request):
     return Response({'message':'Model trained successfully',
                      'training_loss':history.history["loss"],
                      "training_accuracy":history.history["accuracy"],
-                     "val_accuracy":history.history["val_accuracy"],
+                     "validation_accuracy":history.history["val_accuracy"],
                      "validation_loss":history.history["val_loss"],
-                     'model_url':f'http://127.0.0.1:8000/api/download_model?path="model/model.keras'},status=status.HTTP_200_OK)
+                     'model_url':f'http://127.0.0.1:8000/api/download_model?path="/Users/mahder/Real Projects/Mahder AI/Training_models/model.keras'},status=status.HTTP_200_OK)
     
 #this function is used to download the model
 

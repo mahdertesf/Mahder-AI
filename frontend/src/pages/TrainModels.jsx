@@ -46,7 +46,7 @@ function TrainModels() {
             const response = await fetch('http://127.0.0.1:8000/api/trainmodel', {
                 method: 'POST',
                 body: formDataToSend,
-                // Don't set Content-Type header, let the browser set it with boundary
+            
             });
 
             if (!response.ok) {
@@ -56,7 +56,8 @@ function TrainModels() {
 
             const result = await response.json();
             setTrainingResults(result);
-            setIsTraining(false);
+            console.log("Training done")
+            console.log(result);
             
         } catch (err) {
             setError(err.message);

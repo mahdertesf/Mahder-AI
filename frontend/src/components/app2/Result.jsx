@@ -5,39 +5,54 @@ function Result({ results, onDownload, isTraining }) {
         <div className="mt-4">
             {isTraining ? (
                 <div className="text-center p-4">
+      
                     <p>Training in progress...</p>
+                    
+                    <div>
+                        <div>
+                            <h3>Epoch</h3>
+                            <h4>4</h4>
+                        </div>
+                        <div>
+                        <h3>Epoch</h3>
+                        <h4>4</h4>
+                        </div>
+                        <div>
+                        <h3>Epoch</h3>
+                        <h4>4</h4>
+                        </div>
+                        <div>
+                        <h3>Epoch</h3>
+                        <h4>4</h4>
+                        </div>
+                    </div>
+                    <div></div>
+                   
                     <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto mt-4"></div>
                 </div>
-            ) : results ? (
+            ) : True? (             
                 <div className="space-y-4">
                     <h2 className="text-xl font-bold">Training Results</h2>
+                    {console.log(results.training_accuracy)}
                     <p className="text-green-600">Model trained successfully!</p>
                     
                     <div>
                         <h3 className="font-semibold">Training Loss:</h3>
-                        <ul className="list-disc pl-5">
-                            {results.training_loss.map((loss, idx) => (
-                                <li key={idx}>Epoch {idx + 1}: {loss.toFixed(4)}</li>
-                            ))}
-                        </ul>
+                       <h5>{(results.training_loss)[results.training_loss.length -1]}</h5>
                     </div>
+                    <div>
+                        <h3 className="font-semibold">Validation Loss:</h3>
+                        <h5>{(results.validation_loss)[results.validation_loss.length-1]}</h5>
+                    </div>    
                     
                     <div>
                         <h3 className="font-semibold">Training Accuracy:</h3>
-                        <ul className="list-disc pl-5">
-                            {results.training_accuracy.map((acc, idx) => (
-                                <li key={idx}>Epoch {idx + 1}: {(acc * 100).toFixed(2)}%</li>
-                            ))}
-                        </ul>
+                        <h4>{(results.training_accuracy)[results.training_accuracy.length -1]}</h4>
                     </div>
                     
                     <div>
                         <h3 className="font-semibold">Validation Accuracy:</h3>
-                        <ul className="list-disc pl-5">
-                            {results.val_accuracy.map((acc, idx) => (
-                                <li key={idx}>Epoch {idx + 1}: {(acc * 100).toFixed(2)}%</li>
-                            ))}
-                        </ul>
+                        <h4>{(results.validation_accuracy)[results.validation_accuracy.length-1]}</h4>
                     </div>
                     
                     <button 
