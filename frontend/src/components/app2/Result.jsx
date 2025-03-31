@@ -30,6 +30,7 @@ function Result({ trainingStatus, onDownload }) {
     const batchProgress = trainingStatus.current_batch !== undefined && trainingStatus.batches_per_epoch !== undefined 
         ? ((trainingStatus.current_batch + 1) / trainingStatus.batches_per_epoch) * 100 
         : 0;
+  
 
     return (
         <div className="mt-4">
@@ -188,14 +189,14 @@ function Result({ trainingStatus, onDownload }) {
         <div className="flex justify-between items-center">
           <span className="text-gray-600">Loss:</span>
           <span className="font-mono text-gray-800">
-            {displayValue(trainingStatus.training_loss)}
+            {displayValue(Training_loss_at_epoch)}
           </span>
         </div>
         
         <div className="flex justify-between items-center">
           <span className="text-gray-600">Accuracy:</span>
           <span className="font-mono text-gray-800">
-            {displayValue(trainingStatus.training_accuracy)}
+            {displayValue(trainingStatus.Training_accuracy_at_epoch)}
           </span>
         </div>
       </div>
