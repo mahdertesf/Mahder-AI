@@ -34,6 +34,11 @@ training_status = {
     'Training_accuracy_at_epoch': None,
     'Training_loss_at_epoch': None,
     'batches_per_epoch': None,
+    'validation_loss_history': None,
+    'validation_accuracy_history': None,
+    'training_loss_history': None,
+    'training_accuracy_history': None,
+    'ongoing_epoch': None,
 }
 
 training_lock = threading.Lock()
@@ -56,6 +61,10 @@ class BatchLossLogger(keras.callbacks.Callback):
             training_status['val_accuracy'] = logs.get('val_accuracy')
             training_status['Training_accuracy_at_epoch'] = logs.get('accuracy')
             training_status['Training_loss_at_epoch'] = logs.get('loss')
+    def on_epoch_begin(self, epoch, logs=None):
+        return super().on_epoch_begin(epoch, logs)
+        with trainng_lock:
+            training_status['ongoing_epoch'] = epoch
 
 
 def train_model_thread(data, uploaded_file):
@@ -202,8 +211,10 @@ def train_model_thread(data, uploaded_file):
             training_status['is_training'] = False
             training_status['message'] = 'Model trained successfully'
             training_status['model_url'] = f'http://127.0.0.1:8000/api/download_model?path={model_save_path}'
-            training_status['training_loss'] = history.history["loss"]
-            training_status['training_accuracy'] = history.history["accuracy"]
+            training_status['training_loss_history'] = history.history["loss"]
+            training_status['training_accuracy_history'] = history.history["accuracy"]
+            training_status["validation_loss_history"] = history.history["val_loss"]
+            training_status["validation_accuracy_history"] = history.history["val_accuracy"]
         logging.info("Training completed successfully.")
 
     except Exception as e:

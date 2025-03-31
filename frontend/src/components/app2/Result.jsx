@@ -1,4 +1,26 @@
 import React from "react";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 
 function Result({ trainingStatus, onDownload }) {
     const isTrainingComplete =
@@ -23,14 +45,63 @@ function Result({ trainingStatus, onDownload }) {
     };
 
     // Calculate progress percentages
-    const epochProgress = trainingStatus.current_epoch !== undefined && trainingStatus.epochs !== undefined 
-        ? ((trainingStatus.current_epoch + 1) / trainingStatus.epochs) * 100 
+    const epochProgress = trainingStatus.current_epoch !== undefined && trainingStatus.epochs !== undefined
+        ? ((trainingStatus.current_epoch + 1) / trainingStatus.epochs) * 100
         : 0;
 
-    const batchProgress = trainingStatus.current_batch !== undefined && trainingStatus.batches_per_epoch !== undefined 
-        ? ((trainingStatus.current_batch + 1) / trainingStatus.batches_per_epoch) * 100 
+    const batchProgress = trainingStatus.current_batch !== undefined && trainingStatus.batches_per_epoch !== undefined
+        ? ((trainingStatus.current_batch + 1) / trainingStatus.batches_per_epoch) * 100
         : 0;
-  
+
+    const accuracyData = {
+        labels: Array.from({ length: trainingStatus.validation_accuracy_history?.length || 0 }, (_, i) => i + 1),
+        datasets: [
+            {
+                label: 'Validation Accuracy',
+                data: trainingStatus.validation_accuracy_history,
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            },
+            {
+                label: 'Training Accuracy',
+                data: trainingStatus.training_accuracy_history,
+                borderColor: 'rgb(53, 162, 235)',
+                backgroundColor: 'rgba(53, 162, 235, 0.5)',
+            },
+        ],
+    };
+
+    const lossData = {
+        labels: Array.from({ length: trainingStatus.validation_loss_history?.length || 0 }, (_, i) => i + 1),
+        datasets: [
+            {
+                label: 'Validation Loss',
+                data: trainingStatus.validation_loss_history,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+            },
+            {
+                label: 'Training Loss',
+                data: trainingStatus.training_loss_history,
+                borderColor: 'rgb(255, 159, 64)',
+                backgroundColor: 'rgba(255, 159, 64, 0.5)',
+            },
+        ],
+    };
+
+    const chartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Training and Validation Metrics',
+            },
+        },
+    };
+
 
     return (
         <div className="mt-4">
@@ -45,12 +116,12 @@ function Result({ trainingStatus, onDownload }) {
                         <div className="flex justify-between mb-1">
                             <span className="text-lg font-medium">Epoch Progress</span>
                             <span className="text-lg font-medium">
-                                {trainingStatus.current_epoch !== undefined ? trainingStatus.current_epoch + 1 : "0"} / {trainingStatus.epochs || "?"}
+                                {trainingStatus.ongoing_epoch || 1} / {trainingStatus.epochs || "?"}
                             </span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-4">
-                            <div 
-                                className="bg-blue-600 h-4 rounded-full" 
+                            <div
+                                className="bg-blue-600 h-4 rounded-full"
                                 style={{ width: `${epochProgress}%` }}
                             ></div>
                         </div>
@@ -65,8 +136,8 @@ function Result({ trainingStatus, onDownload }) {
                             </span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-4">
-                            <div 
-                                className="bg-green-600 h-4 rounded-full" 
+                            <div
+                                className="bg-green-600 h-4 rounded-full"
                                 style={{ width: `${batchProgress}%` }}
                             ></div>
                         </div>
@@ -77,7 +148,7 @@ function Result({ trainingStatus, onDownload }) {
                             <div className="flex w-full gap-40 border-b-4 border-white justify-between items-center">
                                 <h3>Current Epoch</h3>
                                 <span className="text-blue-800 p-5">
-                                    {trainingStatus.current_epoch !== undefined ? trainingStatus.current_epoch + 1 : "..."}
+                                    {trainingStatus.ongoing_epoch || 1}
                                 </span>
                             </div>
                             <div className="flex w-full gap-40 border-b-4 border-white justify-between items-center">
@@ -90,7 +161,7 @@ function Result({ trainingStatus, onDownload }) {
                                 <div className="flex flex-col justify-start items-start text-start">
                                     <h3 >Training Accuracy</h3>
                                     <p className="text-neutral-500 text-sm border-2 text-start">
-                                        at epoch {typeof trainingStatus.current_epoch === "number" ? trainingStatus.current_epoch + 1 : 1} and
+                                        at epoch {trainingStatus.ongoing_epoch || 1} and
                                         batch {typeof trainingStatus.current_batch === "number" ? trainingStatus.current_batch + 1 : 1}
                                     </p>
                                 </div>
@@ -102,7 +173,7 @@ function Result({ trainingStatus, onDownload }) {
                                 <div className="flex flex-col justify-center items-start">
                                     <h3 className="text-start">Training Loss</h3>
                                     <p className="text-neutral-500 text-sm text-start">
-                                        at epoch {typeof trainingStatus.current_epoch === "number" ? trainingStatus.current_epoch + 1 : 1} and
+                                        at epoch {trainingStatus.ongoing_epoch || 1} and
                                         batch {typeof trainingStatus.current_batch === "number" ? trainingStatus.current_batch + 1 : 1}
                                     </p>
                                 </div>
@@ -135,8 +206,8 @@ function Result({ trainingStatus, onDownload }) {
                                             </div>
                                             <span className="text-blue-800 p-5">
                                                 {displayValue(trainingStatus.Training_accuracy_at_epoch)}
-                                            </span>
-                                        </div>
+                                </span>
+                            </div>
                                     </div>
                                 </div>
                                 <div className="flex max-sm:flex-col justify-between items-center w-full">
@@ -172,87 +243,99 @@ function Result({ trainingStatus, onDownload }) {
                 </div>
             ) : isTrainingComplete ? (
                 <div className="space-y-6 p-6 bg-white rounded-lg shadow-md">
-  <h2 className="text-2xl font-bold text-gray-800 border-b pb-2">Training Results</h2>
-  
-  {trainingStatus.message && (
-    <div className="p-3 bg-blue-50 text-blue-700 rounded-md text-center">
-      {trainingStatus.message}
-    </div>
-  )}
+                    <h2 className="text-2xl font-bold text-gray-800 border-b pb-2">Training Results</h2>
 
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    {/* Training Metrics */}
-    <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-      <h3 className="text-lg font-semibold text-gray-700 mb-3">Training Metrics</h3>
-      
-      <div className="space-y-3">
-        <div className="flex justify-between items-center">
-          <span className="text-gray-600">Loss:</span>
-          <span className="font-mono text-gray-800">
-            {displayValue(Training_loss_at_epoch)}
-          </span>
-        </div>
-        
-        <div className="flex justify-between items-center">
-          <span className="text-gray-600">Accuracy:</span>
-          <span className="font-mono text-gray-800">
-            {displayValue(trainingStatus.Training_accuracy_at_epoch)}
-          </span>
-        </div>
-      </div>
-    </div>
+                    {trainingStatus.message && (
+                        <div className="p-3 bg-blue-50 text-blue-700 rounded-md text-center">
+                            {trainingStatus.message}
+                        </div>
+                    )}
 
-    {/* Validation Metrics */}
-    <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-      <h3 className="text-lg font-semibold text-gray-700 mb-3">Validation Metrics</h3>
-      
-      <div className="space-y-3">
-        <div className="flex justify-between items-center">
-          <span className="text-gray-600">Loss:</span>
-          <span className="font-mono text-gray-800">
-            {displayValue(trainingStatus.val_loss)}
-          </span>
-        </div>
-        
-        <div className="flex justify-between items-center">
-          <span className="text-gray-600">Accuracy:</span>
-          <span className="font-mono text-gray-800">
-            {displayValue(trainingStatus.val_accuracy)}
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Training Metrics */}
+                        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <h3 className="text-lg font-semibold text-gray-700 mb-3">Training Metrics</h3>
 
-  <div className="flex justify-center pt-4">
-    <button
-      onClick={onDownload}
-      className={`px-6 py-2 rounded-full font-medium transition-all ${
-        trainingStatus.model_url
-          ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 shadow-md"
-          : "bg-gray-300 text-gray-500 cursor-not-allowed"
-      }`}
-      disabled={!trainingStatus.model_url}
-    >
-      {trainingStatus.model_url ? (
-        <span className="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
-          </svg>
-          Download Model
-        </span>
-      ) : (
-        "Model Not Ready"
-      )}
-    </button>
-  </div>
-</div>
+                            <div className="space-y-3">
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-600">Loss:</span>
+                                    <span className="font-mono text-gray-800">
+                                        {displayValue(trainingStatus.training_loss_history[trainingStatus.training_loss_history.length - 1])}
+                                    </span>
+                                </div>
+
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-600">Accuracy:</span>
+                                    <span className="font-mono text-gray-800">
+                                        {displayValue(trainingStatus.training_accuracy_history[trainingStatus.training_accuracy_history.length - 1])}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Validation Metrics */}
+                        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <h3 className="text-lg font-semibold text-gray-700 mb-3">Validation Metrics</h3>
+
+                            <div className="space-y-3">
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-600">Loss:</span>
+                                    <span className="font-mono text-gray-800">
+                                        {displayValue(trainingStatus.validation_loss_history[trainingStatus.validation_loss_history.length - 1])}
+                                    </span>
+                                </div>
+
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-600">Accuracy:</span>
+                                    <span className="font-mono text-gray-800">
+                                        {displayValue(trainingStatus.validation_accuracy_history[trainingStatus.validation_accuracy_history.length - 1])}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Charts */}
+                    {trainingStatus.validation_accuracy_history && trainingStatus.training_accuracy_history && (
+                        <div className="mt-8">
+                            <h3 className="text-xl font-semibold text-gray-700 mb-3 text-center">Accuracy Comparison</h3>
+                            <Line data={accuracyData} options={chartOptions} />
+                        </div>
+                    )}
+
+                    {trainingStatus.validation_loss_history && trainingStatus.training_loss_history && (
+                        <div className="mt-8">
+                            <h3 className="text-xl font-semibold text-gray-700 mb-3 text-center">Loss Comparison</h3>
+                            <Line data={lossData} options={chartOptions} />
+                        </div>
+                    )}
+
+                    <div className="flex justify-center pt-4">
+                        <button
+                            onClick={onDownload}
+                            className={`px-6 py-2 rounded-full font-medium transition-all ${trainingStatus.model_url
+                                ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 shadow-md"
+                                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                }`}
+                            disabled={!trainingStatus.model_url}
+                        >
+                            {trainingStatus.model_url ? (
+                                <span className="flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+                                    </svg>
+                                    Download Model
+                                </span>
+                            ) : (
+                                "Model Not Ready"
+                            )}
+                        </button>
+                    </div>
+                </div>
             ) : trainingFailed ? (
                 <div className="text-center p-4">
                     <h2 className="text-xl font-bold">Training Failed</h2>
-                    {trainingStatus.message && (
-                        <p className="text-red-500">{trainingStatus.message}</p>
-                    )}
+                   <p className="text-red-800">Try again</p>
                 </div>
             ) : (
                 <p className="text-gray-500 text-center">
