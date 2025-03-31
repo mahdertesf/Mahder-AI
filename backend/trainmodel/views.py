@@ -83,6 +83,7 @@ def train_model_thread(data, uploaded_file):
         training_status['Training_loss_at_epoch'] = None
         training_status['model_url'] = None
         training_status['batches_per_epoch'] = None
+        training_status["ongoing_epoch"] = None
 
     try:
         logging.info("Starting training...")

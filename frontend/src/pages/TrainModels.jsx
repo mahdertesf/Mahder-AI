@@ -76,7 +76,7 @@ function TrainModels() {
           clearInterval(intervalId);
         }
       } catch (err) {
-        setError(err.message || "Error fetching training status");
+        setError("Try Again");
         clearInterval(intervalId);
         setTrainingStatus((prev) => ({
           ...prev,
@@ -116,7 +116,7 @@ function TrainModels() {
       a.remove();
       window.URL.revokeObjectURL(url);
     } catch (err) {
-      setError(err.message);
+      setError("Failed to download model");
     }
   };
 

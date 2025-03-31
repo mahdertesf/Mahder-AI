@@ -24,7 +24,7 @@ function InsideNav(props) {
         </Link>
       </div>
       <div className="flex flex-col h-full">
-        <ul className="flex flex-col pt-7 pl-7 gap-3 pb-5 flex-1">
+        <ul className="flex flex-col pt-7 pl-7 gap-3 pb-5 ">
           {/* you might remove the pb-5 latter when building the login pages and othres */}
           {props.nav_elements.map((element) => {
             return (

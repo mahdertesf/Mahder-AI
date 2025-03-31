@@ -8,7 +8,7 @@ import InsideNav from "./InsideNav";
 function BigNav(props) {
   return (
     <>
-      <header className=" bottom-0 h-screen lg:w-[25%] md:w-[40%] bg-white  max-md:hidden ">
+      <header className=" bottom-0  min-h-screen lg:w-[25%] md:w-[40%] bg-white  max-md:hidden ">
         <InsideNav
           nav_elements={props.nav_elements}
           navHandler={props.navHandler}
