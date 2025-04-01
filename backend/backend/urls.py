@@ -26,6 +26,7 @@ urlpatterns = [
     path('auth/registration/', include('dj_rest_auth.registration.urls')),
     path('auth/social/', include('allauth.socialaccount.urls')),
     path('',include('trainmodel.urls')),
+    path("", include("telegramhate.urls"))
     
    
 ]
