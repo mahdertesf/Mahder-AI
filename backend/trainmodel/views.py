@@ -15,8 +15,8 @@ import logging
 
 logging.basicConfig(level=logging.INFO)  # Configure logging
 
-os.environ["KAGGLE_USERNAME"] = "mahdertesfayeabebe"
-os.environ["KAGGLE_KEY"] = "f6e473812b3e56ea76cfa09f6979bf6c"
+os.environ["KAGGLE_USERNAME"] =os.getenv("KAGGLE_USERNAME")
+os.environ["KAGGLE_KEY"] = os.getenv("KAGGLE_KEY")
 
 # Shared data structure for training metrics (thread-safe)
 training_status = {
@@ -194,7 +194,7 @@ def train_model_thread(data, uploaded_file):
             optimizer=optimizer,
             weighted_metrics=["accuracy"],
         )
-
+        print(gemma_lm.summary())
         # Train the model
         history = gemma_lm.fit(training_data, 
                             epochs=int(data['epochs']), 
