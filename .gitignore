@@ -43,5 +43,7 @@ MahderAI2/
 
 # model training files
 Training_models/
+model_weight/
+sentencepiece_model/
 
 
