@@ -4,6 +4,8 @@ MahderAI is a project dedicated to exploring the end-to-end process of building 
 
 The primary goal is to bridge the gap between model development in frameworks like TensorFlow/Keras and practical application via web deployment.
 
+**Note:** The application is not available for live view as it requires high-end GPUs, which are costly. Instead, you can clone this code and try it yourself or watch the video I made running both applications (link).
+
 ## Overview
 
 This repository contains the codebase for:
@@ -84,4 +86,4 @@ Contributions, issues, and feature requests are welcome!
 
 Mahder Tesfaye - [GitHub Profile](https://github.com/mahdertesf).
 
-**Note:** The application is not available for live view as it requires high-end GPUs, which are costly. Instead, you can clone this code and try it yourself or watch the video I made running both applications (link).
+
