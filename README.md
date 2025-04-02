@@ -1,6 +1,5 @@
 # MahderAI: Train, Fine-Tune, and Deploy AI Models
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 MahderAI is a project dedicated to exploring the end-to-end process of building and deploying Artificial Intelligence models. It serves as a personal workspace for training models from scratch or fine-tuning pre-existing ones (like Google's Gemma), and then making them accessible through user-friendly web interfaces built with React and Django.
 
