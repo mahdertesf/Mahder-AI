@@ -1,6 +1,5 @@
 # MahderAI: Train, Fine-Tune, and Deploy AI Models
 
-
 MahderAI is a project dedicated to exploring the end-to-end process of building and deploying Artificial Intelligence models. It serves as a personal workspace for training models from scratch or fine-tuning pre-existing ones (like Google's Gemma), and then making them accessible through user-friendly web interfaces built with React and Django.
 
 The primary goal is to bridge the gap between model development in frameworks like TensorFlow/Keras and practical application via web deployment.
@@ -31,8 +30,6 @@ Currently, two main applications are showcased within this project.
 *   **Frontend:** JavaScript, React.js
 *   **Machine Learning:** TensorFlow, Keras
 *   **Telegram Integration:** Telethon (for the Hate Speech Classifier)
-
-
 
 ### 1. Telegram Hate Speech Classifier (Amharic)
 
@@ -71,7 +68,6 @@ Currently, two main applications are showcased within this project.
 *   **Telegram API Usage:**  
     Using the Hate Speech Classifier requires valid **Telegram API credentials**. Ensure you have obtained these from Telegram and configured them correctly in your `.env` file. Use this feature responsibly and be mindful of Telegram's terms of service and rate limits.
 
-
 ## Future Work / Roadmap
 
 *   Implement more robust training status tracking and logging for the fine-tuning UI.
@@ -80,13 +76,12 @@ Currently, two main applications are showcased within this project.
 *   Improve error handling and user feedback across both applications.
 *   Expand language support for the Hate Speech classifier.
 
-
 ## Contributing
 
 Contributions, issues, and feature requests are welcome! 
 
-
-
 ## Contact
 
-Mahder Tesfaye - [GitHub Profile](https://github.com/mahdertesf)
+Mahder Tesfaye - [GitHub Profile](https://github.com/mahdertesf).
+
+**Note:** The application is not available for live view as it requires high-end GPUs, which are costly. Instead, you can clone this code and try it yourself or watch the video I made running both applications (link).
