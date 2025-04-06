@@ -56,7 +56,7 @@ Currently, two main applications are showcased within this project.
 
 *   **Obtaining the Hate Speech Model Weights:**  
     The pre-trained and fine-tuned model weights are available on **Kaggle** at the following location:  
-    🔗 [**Transformer Classifier (Pre-trained and Fine-tuned)**](https://www.kaggle.com/models/mahdertesfayeabebe/transformer-classifier-pre-trained-and-finetuned)
+    🔗 [**Transformer Classifier (Pre-trained and Fine-tuned)**](https://www.kaggle.com/datasets/mahdertesfayeabebe/transformer-classifier-model-weights)
 
     Alternatively, you can train the model yourself using the dataset and instructions provided in the dedicated training repository:  
      [**mahdertesf/Transformer-Classifier**](https://github.com/mahdertesf/Transformer-Classifier)
