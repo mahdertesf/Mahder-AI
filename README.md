@@ -4,7 +4,10 @@ MahderAI is a project dedicated to exploring the end-to-end process of building 
 
 The primary goal is to bridge the gap between model development in frameworks like TensorFlow/Keras and practical application via web deployment.
 
-**Note:** The application is not available for live view as it requires high-end GPUs, which are costly. Instead, you can clone this code and try it yourself or watch the video I made running both applications (link).
+**Note:** The application is not available for live view as it requires high-end GPUs, which are costly. Instead, you can clone this code and try it yourself or watch the videos I made running both applications:
+
+*   **Fine-tuning Gemma2 Models:** [https://youtu.be/PIFOzK_SzVI?feature=shared](https://youtu.be/PIFOzK_SzVI?feature=shared)
+*   **Telegram Hate Content Analyzer:** [https://youtu.be/VUNmOHDsebY?si=qDUwXu134sNOqSts](https://youtu.be/VUNmOHDsebY?si=qDUwXu134sNOqSts)
 
 ## Overview
 
@@ -51,23 +54,23 @@ Currently, two main applications are showcased within this project.
 
 ## Important Notes
 
-*   **Missing Model Weights:**  
+*   **Missing Model Weights:**
     The pre-trained weights for the **Telegram Hate Speech Classifier** (`backend/telegramhate/model_weight/binary_classifier_weights_v21.h5`) are **NOT included** in this GitHub repository due to file size limitations imposed by GitHub.
 
-*   **Obtaining the Hate Speech Model Weights:**  
-    The pre-trained and fine-tuned model weights are available on **Kaggle** at the following location:  
+*   **Obtaining the Hate Speech Model Weights:**
+    The pre-trained and fine-tuned model weights are available on **Kaggle** at the following location:
     🔗 [**Transformer Classifier (Pre-trained and Fine-tuned)**](https://www.kaggle.com/datasets/mahdertesfayeabebe/transformer-classifier-model-weights)
 
-    Alternatively, you can train the model yourself using the dataset and instructions provided in the dedicated training repository:  
+    Alternatively, you can train the model yourself using the dataset and instructions provided in the dedicated training repository:
      [**mahdertesf/Transformer-Classifier**](https://github.com/mahdertesf/Transformer-Classifier)
 
     Once trained, place the generated `binary_classifier_weights_v21.h5` (or similarly named) file into the `MahderAI/backend/telegramhate/model_weight/` directory.
 
-*   **Dataset for Pre-training and Fine-tuning:**  
-    The dataset used for pre-training and fine-tuning the model is available on **Kaggle**:  
+*   **Dataset for Pre-training and Fine-tuning:**
+    The dataset used for pre-training and fine-tuning the model is available on **Kaggle**:
     🔗 [**Amharic Transformer Pre-train and Fine-tuning Data**](https://www.kaggle.com/datasets/mahdertesfayeabebe/amharic-transformer-pre-train-and-fine-tuning-data)
 
-*   **Telegram API Usage:**  
+*   **Telegram API Usage:**
     Using the Hate Speech Classifier requires valid **Telegram API credentials**. Ensure you have obtained these from Telegram and configured them correctly in your `.env` file. Use this feature responsibly and be mindful of Telegram's terms of service and rate limits.
 
 ## Future Work / Roadmap
@@ -80,10 +83,8 @@ Currently, two main applications are showcased within this project.
 
 ## Contributing
 
-Contributions, issues, and feature requests are welcome! 
+Contributions, issues, and feature requests are welcome!
 
 ## Contact
 
 Mahder Tesfaye - [GitHub Profile](https://github.com/mahdertesf).
-
-
