@@ -202,7 +202,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # This is the address of the email server that will handle sending your emails. change it accordingly during production
 EMAIL_PORT = 587  # This is the port of the email server. change it accordingly during production
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'mahdertesfaye001@gmail.com' # this is the email which authenticates the SMTP server use it to send the email. Change it during production
-EMAIL_HOST_PASSWORD = 'idfmglipzycqtomz' # to be changed accordingly during production it is better to store it in .env file fr better decurity use app passsword if needed
+EMAIL_HOST_USER = '' # this is the email which authenticates the SMTP server use it to send the email. Change it during production
+EMAIL_HOST_PASSWORD = '' 
 
 
