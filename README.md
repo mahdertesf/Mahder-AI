@@ -50,7 +50,7 @@ Currently, two main applications are showcased within this project.
 *   **Supported Tasks (UI Options):** Classification, Extractive Question Answering, Chatbots, Translation.
 *   **Features:** Allows configuration of hyperparameters (epochs, batch size, learning rate, validation split), initiates the fine-tuning process on the backend, tracks progress (basic status), and provides a download link for the resulting fine-tuned model checkpoint (`.keras` file).
 *   **Frontend Component:** `frontend/src/pages/TrainModels.js`
-*   **Backend API:** Likely handled by views within `backend/app2/` (endpoints for `/api/trainmodel`, `/api/get_training_status`, etc.)
+*   **Backend API:** handled by views within `backend/app2/` (endpoints for `/api/trainmodel`, `/api/get_training_status`, etc.)
 
 ## Important Notes
 
